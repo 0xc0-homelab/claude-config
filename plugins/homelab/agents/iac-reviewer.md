@@ -19,7 +19,7 @@ Look for, in this order of severity:
 4. Non-idempotent playbooks: `shell` or `command` without `creates:` or
    `changed_when:`.
 5. Hardcoded values that already exist as a variable (IPs, MACs, storage IDs,
-   bridge names).
+   VNet names).
 6. Packer images without a pinned version.
 7. Changes belonging to a phase later than the one declared in the repo's
    CLAUDE.md.
