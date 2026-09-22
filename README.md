@@ -53,6 +53,8 @@ instead — see `infrastructure/`.
 
 ## Hooks
 
+- `board.sh` — `SessionStart`: loads the open items of the org project board
+  into every session, with the rule that no work starts without an issue.
 - `no-apply.sh` — blocks `tofu/terraform apply|destroy` and `ansible-playbook`
   without `--check`.
 - `guard-files.sh` — blocks hand-editing `firewall.tf` (it is generated from
