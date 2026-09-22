@@ -1,6 +1,6 @@
 ---
 name: deployments-builder
-description: Implements ALREADY DECIDED changes in the deployments repo (docker compose per VM, and clusters/prod for Flux from phase 6 onwards).
+description: Implements ALREADY DECIDED changes in the deployments repo (docker compose per VM, and clusters/prod for ArgoCD from phase 6 onwards).
 tools: Read, Grep, Glob, Edit, Write, Bash
 disallowedTools: WebFetch, WebSearch
 model: sonnet
