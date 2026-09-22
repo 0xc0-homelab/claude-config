@@ -1,0 +1,4 @@
+# Tooling for the claude-config repo.
+# jq is what the plugin hooks shell out to.
+[tools]
+jq = "1.8.2"

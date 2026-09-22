@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Blocks applies and playbooks without --check. Exit 2 = block; Claude reads stderr.
+set -uo pipefail
+
+cmd="$(jq -r '.tool_input.command // ""')"
+[ -z "$cmd" ] && exit 0
+
+if printf '%s' "$cmd" | grep -Eq '\b(tofu|terraform)\b[^|;&]*\b(apply|destroy)\b'; then
+  echo "BLOCKED: the apply/destroy is run by the human after manual approval of the PR. Use 'tofu plan'." >&2
+  exit 2
+fi
+
+if printf '%s' "$cmd" | grep -Eq '\bansible-playbook\b' \
+   && ! printf '%s' "$cmd" | grep -Eq '(--check|-C)\b'; then
+  echo "BLOCKED: ansible-playbook only with --check. The real run is launched by the human." >&2
+  exit 2
+fi
+
+exit 0

@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PLUGIN_ROOT/hooks/no-apply.sh"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PLUGIN_ROOT/hooks/commit-msg.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PLUGIN_ROOT/hooks/guard-files.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
