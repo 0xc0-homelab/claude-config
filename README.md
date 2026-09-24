@@ -7,7 +7,7 @@ Claude Code marketplace and plugin for the `0xc0-homelab` organization.
 plugins/homelab/                  the plugin
   agents/                         5 agents
   skills/                         1 skill
-  hooks/                          guardrails (apply, secrets, firewall.tf)
+  hooks/                          guardrails (apply, secrets, state)
 ```
 
 ## Consuming it from another repo
@@ -32,7 +32,7 @@ enables itself.
 
 | Agent                  | Type      | What for                                   |
 |------------------------|-----------|--------------------------------------------|
-| `network-reviewer`     | read-only | validates network and firewall vs `zones.md` |
+| `network-reviewer`     | read-only | validates network and firewall vs the transit matrix |
 | `iac-reviewer`         | read-only | OpenTofu, Packer, Ansible                  |
 | `drift-hunter`         | read-only | drift between real state and code          |
 | `infra-builder`        | builder   | implements in `infrastructure/`            |
@@ -57,9 +57,8 @@ instead — see `infrastructure/`.
   into every session, with the rule that no work starts without an issue.
 - `no-apply.sh` — blocks `tofu/terraform apply|destroy` and `ansible-playbook`
   without `--check`.
-- `guard-files.sh` — blocks hand-editing `firewall.tf` (it is generated from
-  the matrix), touching the state, and writing secrets that are not encrypted
-  with SOPS.
+- `guard-files.sh` — blocks touching the state, and writing secrets that are
+  not encrypted with SOPS.
 - `commit-msg.sh` — rejects a `git commit -m` whose subject is not a
   Conventional Commit, is over 72 characters, ends in a period, starts with a
   capital, or carries a `Co-Authored-By` / generated-by trailer.
