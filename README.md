@@ -36,7 +36,7 @@ described in **Installing** under Hooks.
 | `iac-reviewer`         | read-only | OpenTofu, Packer, Ansible                  |
 | `drift-hunter`         | read-only | drift between real state and code          |
 | `infra-builder`        | builder   | implements in `infrastructure/`            |
-| `deployments-builder`  | builder   | implements in `deployments/`               |
+| `gitops-builder`       | builder   | implements in `gitops/`                    |
 
 The read-only ones cannot edit (`disallowedTools: Edit, Write`). The builders
 get closed specifications and stop if anything is ambiguous.
