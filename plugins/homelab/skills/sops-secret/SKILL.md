@@ -29,15 +29,18 @@ to remember which key encrypts what:
 
 ```yaml
 creation_rules:
-  - path_regex: \.sops\.(yaml|yml)$
-    encrypted_regex: '^(data|stringData|password|token|key|secret)$'
-    age: age1...
+  - path_regex: (^|/)secrets/.*\.sops\.ya?ml$
+    # The operator, and this repo's CI key, whose private half exists only as
+    # the SOPS_AGE_KEY Actions secret.
+    age: age1<operator>,age1<repo-ci>
 ```
 
-- `path_regex` decides which files the rule covers.
-- `age:` lists the **public** recipients, comma-separated for several.
-- `encrypted_regex` keeps structural keys readable so diffs stay reviewable.
-  Encrypting the whole file makes every change an opaque blob.
+- `path_regex` decides which files the rule covers: `*.sops.yaml` under a
+  `secrets/` directory.
+- `age:` lists the **public** recipients, comma-separated: the operator's key
+  and the repo's own CI key. Every repo has both.
+- No `encrypted_regex`: SOPS encrypts every value and keeps the YAML keys in
+  clear, so a diff still shows which entries changed.
 
 ## Keys
 
@@ -46,8 +49,8 @@ not temporarily. `guard-files.sh` blocks `*age.key*` for this reason.
 
 Public recipients belong in `.sops.yaml`, and they are not secret.
 
-From phase 3 the secret backend migrates progressively to Vault over OIDC. Until
-then, SOPS+age is the only mechanism.
+SOPS+age is the only secret mechanism. Vault over OIDC replaces it
+progressively in phase 3, along with credential rotation.
 
 ## Procedure
 

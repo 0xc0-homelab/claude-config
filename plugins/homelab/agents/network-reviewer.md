@@ -20,7 +20,8 @@ Read the full `transit` matrix first. Then check, in this order of severity:
 2. **Critical** — No firewall rule outside the `zone-firewall` module: every
    rule comes from a `transit` entry, and its comment is `<from> -> <to>: <note>`.
 3. **Critical** — Zero egress rules from `data`. `data` initiates nothing.
-4. **Critical** — Zero ingress rules towards `mgmt` from any zone.
+4. **Critical** — Zero ingress rules towards `mgmt` from any other zone. SSH
+   between the `vm-access` connectors, inside `mgmt`, is allowed.
 5. **Critical** — The node stays on DROP: nothing from the internet, 22, 443
    and 8006 only from 10.10.0.0/22, and 9100 and 10250 from `platform`. `ci`
    reaches the node over 443 and 8006, never over 22.

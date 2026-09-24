@@ -20,7 +20,8 @@ Look for, in this order of severity:
    `changed_when:`.
 5. Hardcoded values that already exist as a variable (IPs, MACs, storage IDs,
    VNet names).
-6. Packer images without a pinned version.
+6. Packer plugins or a source image without a pinned version or checksum.
+   The templates themselves carry no version, by design.
 7. Changes belonging to a phase later than the one declared in the repo's
    CLAUDE.md.
 

@@ -7,7 +7,7 @@ Claude Code marketplace and plugin for the `0xc0-homelab` organization.
 plugins/homelab/                  the plugin
   agents/                         5 agents
   skills/                         1 skill
-  hooks/                          guardrails (apply, secrets, state)
+  hooks/                          guardrails, commit and branch conventions, board loader
 ```
 
 ## Consuming it from another repo
@@ -25,8 +25,8 @@ In the repo's `.claude/settings.json`:
 }
 ```
 
-Once the project folder is trusted, the marketplace is added and the plugin
-enables itself.
+That declares and enables the plugin; each machine still installs it once, as
+described in **Installing** under Hooks.
 
 ## Agents
 
