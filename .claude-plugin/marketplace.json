@@ -2,7 +2,7 @@
   "$schema": "https://code.claude.com/schemas/marketplace.json",
   "name": "0xc0-homelab",
   "description": "Shared Claude Code configuration for the 0xc0-homelab org",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "owner": {
     "name": "sergioaten"
   },
@@ -12,7 +12,7 @@
       "displayName": "Homelab",
       "source": "./plugins/homelab",
       "description": "Homelab agents, hooks and guardrails: zoned network, IaC and deployments",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "sergioaten"
       }

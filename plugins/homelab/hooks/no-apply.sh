@@ -10,9 +10,10 @@ if printf '%s' "$cmd" | grep -Eq '\b(tofu|terraform)\b[^|;&]*\b(apply|destroy)\b
   exit 2
 fi
 
-if printf '%s' "$cmd" | grep -Eq '\bansible-playbook\b' \
+# scripts/ansible is how infrastructure runs ansible-playbook: same rule.
+if printf '%s' "$cmd" | grep -Eq '\bansible-playbook\b|scripts/ansible\b' \
    && ! printf '%s' "$cmd" | grep -Eq '(--check|-C)\b'; then
-  echo "BLOCKED: ansible-playbook only with --check. The real run is launched by the human." >&2
+  echo "BLOCKED: ansible-playbook (or scripts/ansible) only with --check. The real run is launched by the human." >&2
   exit 2
 fi
 

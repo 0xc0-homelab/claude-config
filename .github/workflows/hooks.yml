@@ -1,0 +1,19 @@
+# Runs the hook test cases on every PR that touches the hooks: a guardrail
+# that silently stops blocking is worse than none.
+name: hooks
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ['plugins/homelab/hooks/**', '.github/workflows/hooks.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: cases
+        run: plugins/homelab/hooks/tests/run.sh

@@ -1,0 +1,18 @@
+{"want": 2, "hook": "no-apply", "tool_input": {"command": "mise exec -- scripts/ansible playbooks/vm-ci.yml --diff"}}
+{"want": 0, "hook": "no-apply", "tool_input": {"command": "mise exec -- scripts/ansible playbooks/vm-ci.yml --check --diff"}}
+{"want": 2, "hook": "no-apply", "tool_input": {"command": "ansible-playbook site.yml"}}
+{"want": 0, "hook": "no-apply", "tool_input": {"command": "cd ansible && mise exec -- ansible-lint --profile production roles"}}
+{"want": 2, "hook": "no-apply", "tool_input": {"command": "scripts/tofu prod apply"}}
+{"want": 0, "hook": "no-apply", "tool_input": {"command": "scripts/tofu prod plan"}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -q -F - <<'EOF'\nBad subject via heredoc.\n\nsome body\nEOF"}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -q -F - <<'EOF'\nfix(hooks): check heredoc messages\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF"}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "git add -A && git commit -q -F - <<'EOF'\nfix(hooks): check heredoc messages\n\nThe body, wrapped at 72.\nEOF\ngit push -q"}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -F - <<EOF\nfeat: Add a thing\nEOF"}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "git commit -qam \"fix(ansible): drop stale registrations\" -m \"Refs #44.\""}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -m \"Added some stuff.\""}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "git commit --amend --no-edit"}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "git commit -F notes.txt"}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -qam \"Bad subject\" -m \"Refs #44.\""}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -am \"fix: ok subject\" -m \"Co-Authored-By: Claude <noreply@anthropic.com>\""}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "git commit --message=\"docs: fix a typo\""}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "git -C /tmp/repo commit --allow-empty -q -m \"chore: test\""}}
