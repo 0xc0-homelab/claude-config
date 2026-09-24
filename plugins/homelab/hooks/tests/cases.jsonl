@@ -25,3 +25,8 @@
 {"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch -q -c style/format"}}
 {"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch --create feat/Upper_Case"}}
 {"want": 2, "hook": "branch-name", "tool_input": {"command": "git -C infrastructure switch -c wip && git push"}}
+{"want": 0, "hook": "commit-msg", "tool_input": {"command": "python3 - <<'EOF'\ndef sub(p, old, new):\n    pass\nEOF\ngit add -A && git commit -q -F - <<'EOF'\ndocs: fix a typo\n\nThe body.\nEOF"}}
+{"want": 2, "hook": "commit-msg", "tool_input": {"command": "python3 - <<'EOF'\nprint('ok')\nEOF\ngit commit -q -F - <<'EOF'\nBad subject after a script.\nEOF"}}
+{"want": 0, "hook": "branch-name", "tool_input": {"command": "cd workspace && git switch main -q && git pull -q; ls -d gitops; git -C gitops remote get-url origin"}}
+{"want": 0, "hook": "branch-name", "tool_input": {"command": "git checkout main | cat; git -C gitops log -1"}}
+{"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch main -q && git switch -c wip"}}

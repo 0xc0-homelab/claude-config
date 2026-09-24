@@ -8,7 +8,9 @@ cmd="$(jq -r '.tool_input.command // ""')"
 # Every branch the command creates: git checkout -b|-B, git switch -c|-C|--create,
 # with or without -C <dir> before the subcommand.
 names="$(printf '%s' "$cmd" | perl -ne '
-  while (/\bgit\b(?:\s+-C\s+\S+)?\s+(?:checkout\s+(?:\S+\s+)*?-[bB]|switch\s+(?:\S+\s+)*?(?:-[cC]|--create|--force-create))\s+([^\s;&|]+)/g) {
+  # The flags between the subcommand and -c stay within one command: they never
+  # cross ;, & or |, or a later "git -C dir" would read as "switch -C dir".
+  while (/\bgit\b(?:\s+-C\s+\S+)?\s+(?:checkout\s+(?:[^\s;&|]+\s+)*?-[bB]|switch\s+(?:[^\s;&|]+\s+)*?(?:-[cC]|--create|--force-create))\s+([^\s;&|]+)/g) {
     print "$1\n";
   }')"
 [ -z "$names" ] && exit 0
