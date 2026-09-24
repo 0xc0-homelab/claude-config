@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
-# Protects firewall.tf (generated) and prevents writing cleartext secrets.
+# Protects the state and prevents writing cleartext secrets.
 set -uo pipefail
 
 path="$(jq -r '.tool_input.file_path // ""')"
 [ -z "$path" ] && exit 0
-
-case "$path" in
-  */firewall.tf|firewall.tf)
-    echo "BLOCKED: firewall.tf is generated from docs/zones.md. Edit the 'transit' block of the matrix and regenerate with the firewall-matrix skill." >&2
-    exit 2
-    ;;
-esac
 
 case "$path" in
   *.tfstate|*.tfstate.backup)

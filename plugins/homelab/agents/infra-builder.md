@@ -13,9 +13,11 @@ If the specification is ambiguous on anything that changes the result (zone,
 IP, disk size, hostname, port), **stop and hand the question back**. Do not
 assume.
 
-The repo conventions are in its `CLAUDE.md` and the network in `docs/zones.md`.
-Respect them without exception. In particular: do not hand-edit `firewall.tf`,
-and check every IP against the zone table and the reserved ranges.
+The repo conventions are in its `CLAUDE.md`, and the network in
+`environments/prod/terraform.tfvars`, explained in `docs/zones.md`. Respect them
+without exception. In particular: a firewall rule is a `transit` entry, never a
+resource written by hand, and every IP is checked against the zones and the
+reserved ranges.
 
 Everything you write goes in English: files, file names and comments.
 
