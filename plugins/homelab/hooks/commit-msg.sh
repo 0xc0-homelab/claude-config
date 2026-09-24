@@ -12,9 +12,11 @@ printf '%s' "$cmd" | grep -Eq '\bgit\b[^|;&]*\bcommit\b' || exit 0
 # A commit reading it from a real file, or an amend with no new message, is
 # out of scope: there is nothing in the command to inspect.
 if printf '%s' "$cmd" | grep -Eq '[[:space:]](-F|--file)[=[:space:]]+-([[:space:]]|$)'; then
-  # The heredoc body: from the line after <<[-]['"]TAG['"] up to the line TAG.
+  # The body of the heredoc opened on the git commit line itself, from the line
+  # after <<[-]['"]TAG['"] up to the line TAG. Another heredoc earlier in the
+  # command (a script editing a file, say) is not the message.
   msg="$(printf '%s' "$cmd" | perl -0777 -ne '
-    print $2 if /<<-?\s*["\x27]?(\w+)["\x27]?[^\n]*\n(.*?)\n\s*\1\s*(?:\n|$)/s')"
+    print $2 if /\bgit\b[^\n;&|]*\bcommit\b[^\n]*?<<-?\s*["\x27]?(\w+)["\x27]?[^\n]*\n(.*?)\n\s*\1\s*(?:\n|$)/s')"
 elif printf '%s' "$cmd" | grep -Eq '[[:space:]]-([a-zA-Z]*m|-message)[=[:space:]]'; then
   # Every -m value, whichever quoting was used, grouped short flags included
   # (-qam "subject").
