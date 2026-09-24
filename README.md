@@ -64,6 +64,9 @@ instead — see `infrastructure/`.
   such as `-qam` included) or from a heredoc through `-F -`, has a subject that
   is not a Conventional Commit, is over 72 characters, ends in a period,
   starts with a capital, or carries a `Co-Authored-By` / generated-by trailer.
+- `branch-name.sh` — rejects creating a branch (`git switch -c`, `git checkout
+  -b`, with or without `-C <dir>`) whose name is not `<type>/<slug>`: a commit
+  type, then lowercase letters, digits, `.` and `-`.
 
 They require `jq` and `perl` on the PATH. `hooks/tests/run.sh` runs every case
 in `hooks/tests/cases.jsonl` through its hook; the `hooks` workflow runs it on

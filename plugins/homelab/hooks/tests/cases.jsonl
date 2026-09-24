@@ -16,3 +16,12 @@
 {"want": 2, "hook": "commit-msg", "tool_input": {"command": "git commit -am \"fix: ok subject\" -m \"Co-Authored-By: Claude <noreply@anthropic.com>\""}}
 {"want": 0, "hook": "commit-msg", "tool_input": {"command": "git commit --message=\"docs: fix a typo\""}}
 {"want": 0, "hook": "commit-msg", "tool_input": {"command": "git -C /tmp/repo commit --allow-empty -q -m \"chore: test\""}}
+{"want": 0, "hook": "branch-name", "tool_input": {"command": "git switch -c feat/branch-name-hook"}}
+{"want": 0, "hook": "branch-name", "tool_input": {"command": "cd infrastructure && git switch main -q && git pull -q && git switch -c fix/cloudflared-quic -q"}}
+{"want": 0, "hook": "branch-name", "tool_input": {"command": "git -C claude-config checkout -b chore/bump-opentofu-1.12.7"}}
+{"want": 0, "hook": "branch-name", "tool_input": {"command": "git switch main && git checkout feat/existing"}}
+{"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch -c my-branch"}}
+{"want": 2, "hook": "branch-name", "tool_input": {"command": "git checkout -b Feature/Something"}}
+{"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch -q -c style/format"}}
+{"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch --create feat/Upper_Case"}}
+{"want": 2, "hook": "branch-name", "tool_input": {"command": "git -C infrastructure switch -c wip && git push"}}
