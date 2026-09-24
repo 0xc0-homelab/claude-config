@@ -8,15 +8,23 @@ cmd="$(jq -r '.tool_input.command // ""')"
 # Only look at git commit invocations.
 printf '%s' "$cmd" | grep -Eq '\bgit\b[^|;&]*\bcommit\b' || exit 0
 
-# An amend that only reworks the tree, or a commit taking its message from a
-# file or a template, is out of scope: there is no -m to inspect.
-printf '%s' "$cmd" | grep -Eq '[[:space:]]-(m|-message)[=[:space:]]' || exit 0
-
-# Pull out every -m value, whichever quoting was used.
-msg="$(printf '%s' "$cmd" | perl -ne '
-  while (/-m(?:essage)?[= ]\s*("([^"\\]*(\\.[^"\\]*)*)"|'"'"'([^'"'"']*)'"'"'|(\S+))/g) {
-    print defined($2) ? $2 : defined($4) ? $4 : $5; print "\n";
-  }')"
+# The message comes from -m, or from stdin through a heredoc (-F - / --file=-).
+# A commit reading it from a real file, or an amend with no new message, is
+# out of scope: there is nothing in the command to inspect.
+if printf '%s' "$cmd" | grep -Eq '[[:space:]](-F|--file)[=[:space:]]+-([[:space:]]|$)'; then
+  # The heredoc body: from the line after <<[-]['"]TAG['"] up to the line TAG.
+  msg="$(printf '%s' "$cmd" | perl -0777 -ne '
+    print $2 if /<<-?\s*["\x27]?(\w+)["\x27]?[^\n]*\n(.*?)\n\s*\1\s*(?:\n|$)/s')"
+elif printf '%s' "$cmd" | grep -Eq '[[:space:]]-([a-zA-Z]*m|-message)[=[:space:]]'; then
+  # Every -m value, whichever quoting was used, grouped short flags included
+  # (-qam "subject").
+  msg="$(printf '%s' "$cmd" | perl -ne '
+    while (/(?:\s-[a-zA-Z]*m|\s--message)[= ]\s*("([^"\\]*(\\.[^"\\]*)*)"|'"'"'([^'"'"']*)'"'"'|(\S+))/g) {
+      print defined($2) ? $2 : defined($4) ? $4 : $5; print "\n";
+    }')"
+else
+  exit 0
+fi
 [ -z "$msg" ] && exit 0
 
 subject="$(printf '%s' "$msg" | head -1)"

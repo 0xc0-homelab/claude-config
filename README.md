@@ -55,15 +55,29 @@ instead — see `infrastructure/`.
 
 - `board.sh` — `SessionStart`: loads the open items of the org project board
   into every session, with the rule that no work starts without an issue.
-- `no-apply.sh` — blocks `tofu/terraform apply|destroy` and `ansible-playbook`
-  without `--check`.
+- `no-apply.sh` — blocks `tofu/terraform apply|destroy`, and `ansible-playbook`
+  or `scripts/ansible` without `--check`.
 - `guard-files.sh` — blocks touching the state, and writing secrets that are
-  not encrypted with SOPS.
-- `commit-msg.sh` — rejects a `git commit -m` whose subject is not a
-  Conventional Commit, is over 72 characters, ends in a period, starts with a
-  capital, or carries a `Co-Authored-By` / generated-by trailer.
+  not encrypted with SOPS. It only sees Edit and Write: a file written from a
+  shell command is not checked.
+- `commit-msg.sh` — rejects a commit whose message, from `-m` (grouped flags
+  such as `-qam` included) or from a heredoc through `-F -`, has a subject that
+  is not a Conventional Commit, is over 72 characters, ends in a period,
+  starts with a capital, or carries a `Co-Authored-By` / generated-by trailer.
 
-They require `jq` on the PATH.
+They require `jq` and `perl` on the PATH. `hooks/tests/run.sh` runs every case
+in `hooks/tests/cases.jsonl` through its hook; the `hooks` workflow runs it on
+every PR that touches them.
+
+**Installing.** Declaring the plugin in a project's `.claude/settings.json`
+enables it but does not install it. Once per machine, from the workspace:
+
+```bash
+claude plugin marketplace add 0xc0-homelab/claude-config
+claude plugin install homelab@0xc0-homelab --scope project
+```
+
+Then start a new session: plugins load at startup.
 
 ## Validate
 
