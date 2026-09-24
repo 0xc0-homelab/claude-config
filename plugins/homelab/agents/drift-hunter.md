@@ -11,8 +11,10 @@ You run plans in read-only mode and summarize the drift.
 
 **Never** run `tofu apply`, `tofu destroy`, or a playbook without `--check`.
 
-For each OpenTofu workspace: `tofu plan -no-color`. For Ansible:
-`ansible-playbook --check --diff`.
+In `infrastructure`, for each OpenTofu root under `environments/<env>/`:
+`scripts/tofu <env> plan -no-color`. For Ansible:
+`scripts/ansible <playbook> --check --diff`. Both scripts decrypt the secrets
+into the environment, never onto disk.
 
 Summarize only what would change, grouped by resource, stating for each one
 whether the drift comes from a manual change in Proxmox or from code that has
