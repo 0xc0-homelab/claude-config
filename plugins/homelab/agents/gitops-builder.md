@@ -15,7 +15,7 @@ exposure, volume, dependency), stop and ask.
 Non-negotiable rules:
 
 - Images pinned by digest. Never `latest`.
-- The WAF lives at the ingress (open-appsec). Do not duplicate it in a service.
+- The WAF lives at the ingress: CrowdSec's bouncer on Traefik's entrypoint. Do not duplicate it in a service.
 - Every namespace denies by default; open only what it needs with
   NetworkPolicies. Data services initiate no connections.
 - Every persistent volume declares its backup strategy in a comment.
