@@ -21,7 +21,7 @@ Non-negotiable rules:
 - Every persistent volume declares its backup strategy in a comment.
 - Secrets never in cleartext in a manifest: SOPS+age for what the cluster needs
   to boot, Vault for everything else.
-- Portals only behind Cloudflare Access; Vault and admin interfaces never
+- Portals only over WARP, never published; Vault and admin interfaces never
   published.
 - Everything you write goes in English: files, file names and comments.
 
