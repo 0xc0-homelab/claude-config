@@ -1,5 +1,6 @@
 # Runs the hook test cases on every PR that touches the hooks: a guardrail
-# that silently stops blocking is worse than none.
+# that silently stops blocking is worse than none. The steps live in the
+# reusable workflow in 0xc0-homelab/.github.
 name: hooks
 
 on:
@@ -12,8 +13,6 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: cases
-        run: plugins/homelab/hooks/tests/run.sh
+    uses: 0xc0-homelab/.github/.github/workflows/hook-tests.yml@main
+    with:
+      command: plugins/homelab/hooks/tests/run.sh
