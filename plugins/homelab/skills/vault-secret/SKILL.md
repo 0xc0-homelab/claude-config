@@ -42,7 +42,9 @@ The commands follow the `vault` README, "Writing or rotating a secret":
 
 - `vault login -no-print`;
 - the value on stdin (`key=-`), from a downloaded file or `read -rs`, never
-  typed into the command;
+  typed into the command. `key=-` stores stdin exactly, trailing newline
+  included: a generated value (`openssl rand ... | tr -d '\n' | vault kv ...`)
+  must have it stripped, or the newline becomes part of the secret;
 - `kv put` for a new secret, `kv patch` to change one key;
 - then the metadata: `owner` and `rotated_at`.
 
