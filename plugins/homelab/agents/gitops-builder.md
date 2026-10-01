@@ -19,8 +19,8 @@ Non-negotiable rules:
 - Every namespace denies by default; open only what it needs with
   NetworkPolicies. Data services initiate no connections.
 - Every persistent volume declares its backup strategy in a comment.
-- Secrets never in cleartext in a manifest: SOPS+age for what the cluster needs
-  to boot, Vault for everything else.
+- Secrets never in a manifest, not even encrypted: they come from Vault through
+  Vault Secrets Operator (skill `vault-secret`).
 - Portals only over WARP, never published; Vault and admin interfaces never
   published.
 - Everything you write goes in English: files, file names and comments.

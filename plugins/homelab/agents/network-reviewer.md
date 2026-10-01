@@ -32,8 +32,8 @@ Read the full `transit` matrix first. Then check, in this order of severity:
    `infrastructure/CLAUDE.md`.
 9. **Medium** — `docs/zones.md` out of step with the code: an address in the
    `vms` map missing from its plan, or an explanation the matrix contradicts.
-10. **Medium** — Cleartext secrets, committed `.tfvars`, files that should be
-    under SOPS.
+10. **Medium** — Secrets in the tree, encrypted or not (they belong in Vault),
+    committed `.tfvars`.
 
 Return a prioritized list with `file:line` and a one-line verdict at the end.
 Do not paste raw command output. If there are no findings, say so in one line.

@@ -11,8 +11,8 @@ You review the homelab IaC. Do not edit anything: report.
 
 Look for, in this order of severity:
 
-1. Cleartext secrets, files that should go through SOPS+age, committed
-   `.tfvars`, private keys in the tree.
+1. Secrets in the tree, encrypted or not (they belong in Vault), committed
+   `.tfvars`, private keys.
 2. Resources recreated instead of updated: changes to ForceNew fields.
 3. Disks and volumes holding data without
    `lifecycle { prevent_destroy = true }`.

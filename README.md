@@ -45,7 +45,7 @@ get closed specifications and stop if anything is ambiguous.
 
 | Skill          | What for                                                  |
 |----------------|-----------------------------------------------------------|
-| `sops-secret`  | create, edit and rotate SOPS+age secrets; recipient changes |
+| `vault-secret` | where a secret goes in Vault, how it is granted, written and rotated |
 
 It lives in the plugin, not in a single repo, because secrets show up in all
 of them. Skills tied to one repo live in that repo's `.claude/skills/`
@@ -57,8 +57,10 @@ instead — see `infrastructure/`.
   into every session, with the rule that no work starts without an issue.
 - `no-apply.sh` — blocks `tofu/terraform apply|destroy`, and `ansible-playbook`
   or `scripts/ansible` without `--check`.
-- `guard-files.sh` — blocks touching the state, and writing secrets that are
-  not encrypted with SOPS. It only sees Edit and Write: a file written from a
+- `guard-files.sh` — blocks touching the state, and writing a secrets file
+  (`.env`, `*secrets.yaml`, `*.sops.*`, private keys) into a repo: secrets live
+  in Vault. gitops' `vault-secrets.yaml`, which only names Vault paths, is let
+  through. It only sees Edit and Write: a file written from a
   shell command is not checked.
 - `commit-msg.sh` — rejects a commit whose message, from `-m` (grouped flags
   such as `-qam` included) or from a heredoc through `-F -`, has a subject that
