@@ -30,3 +30,10 @@
 {"want": 0, "hook": "branch-name", "tool_input": {"command": "cd workspace && git switch main -q && git pull -q; ls -d gitops; git -C gitops remote get-url origin"}}
 {"want": 0, "hook": "branch-name", "tool_input": {"command": "git checkout main | cat; git -C gitops log -1"}}
 {"want": 2, "hook": "branch-name", "tool_input": {"command": "git switch main -q && git switch -c wip"}}
+{"want": 2, "hook": "guard-files", "tool_input": {"file_path": "/repo/secrets/tofu.sops.yaml"}}
+{"want": 2, "hook": "guard-files", "tool_input": {"file_path": "/repo/secrets.yaml"}}
+{"want": 2, "hook": "guard-files", "tool_input": {"file_path": "/repo/app/.env"}}
+{"want": 2, "hook": "guard-files", "tool_input": {"file_path": "/repo/environments/prod/terraform.tfstate"}}
+{"want": 2, "hook": "guard-files", "tool_input": {"file_path": "/home/op/.ssh/id_ed25519"}}
+{"want": 0, "hook": "guard-files", "tool_input": {"file_path": "/repo/environments/prod/terraform.tfvars"}}
+{"want": 0, "hook": "guard-files", "tool_input": {"file_path": "/repo/platform/traefik/vault-secrets.yaml"}}
