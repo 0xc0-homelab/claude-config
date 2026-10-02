@@ -24,6 +24,22 @@ the secret goes instead.
 | `ci/` | what the pipelines use, `ci/<repo>/<name>` | that repo's CI jobs, over JWT (GitHub's OIDC token) |
 | `platform/` | the cluster's shared services, `platform/<namespace>/<name>` | Vault Secrets Operator, one Kubernetes auth role per namespace |
 | `apps/` | the applications, `apps/<namespace>/<name>` | Vault Secrets Operator, per namespace |
+| `ops/` | what only people use: UI logins, passwords in clear, `ops/<service>/<name>` | the operator; **no machine has a policy on it** |
+
+- **People or machines.** A secret a machine reads goes in `ci/`,
+  `platform/` or `apps/`. One only a person uses goes in `ops/`, and no
+  policy for a machine ever names it. When both need the same credential, each
+  gets its own form: the machine the bcrypt or the htpasswd line
+  (`platform/argocd/admin`, `platform/shared/ui-basic-auth`), the person the
+  password (`ops/argocd/admin`, `ops/ui-basic-auth`). A login a machine must
+  also read is a machine's (`platform/openobserve/root`).
+- **One service, one path.** The owner is the service the secret is for, not
+  whoever reads it: ArgoCD's is `platform/argocd/admin`, though infrastructure's
+  CI is what writes it into the cluster. A reader across a boundary is granted
+  it by name, with the reason in its policy (`ci-infrastructure.hcl`).
+- **One credential per consumer when the service allows it.** The collectors
+  send to OpenObserve with a service account (`platform/openobserve-collector/ingest`),
+  not with the root user.
 
 A credential more than one consumer uses lives **once**, at
 `<engine>/shared/<name>`, and each consumer's policy grants it **by name**.
@@ -31,6 +47,14 @@ Never `shared/*` whole. Never a second copy under another owner. The one
 exception is a credential that crosses engines, such as the Cloudflare token in
 `ci/shared/cloudflare` and `platform/shared/cloudflare`: two copies, rotated
 together, and that fact is recorded next to both.
+
+## Not in Vault
+
+What restoring Vault takes never lives in it: the unseal keys and root token,
+PBS and its Storage Box, Hetzner Robot and Rescue, Proxmox `root@pam`, RustFS
+admin, and the Cloudflare and GitHub accounts with their 2FA. They are in the
+operator's password manager and an offline copy (`vault` README, "Recovery
+credentials: outside Vault"). Never propose moving one of them into Vault.
 
 ## Who writes it
 
@@ -74,8 +98,9 @@ A shared secret is one write: every consumer follows.
 ## Check before calling it done
 
 - No value anywhere in the tree, the diff, a commit message or a PR body.
-- The path follows `<engine>/<owner>/<name>`, and a shared one sits under
-  `shared/` and is granted by name.
+- The path follows `<engine>/<owner>/<name>`, named after the service, and a
+  shared one sits under `shared/` and is granted by name.
+- A password a person types is in `ops/`, and no machine's policy reaches it.
 - The policy and the role exist in `vault`, and the consumer's `vault-secrets`
   or `VaultStaticSecret` reads exactly that path.
 - The operator has the commands to write the value. Do not record a secret as
