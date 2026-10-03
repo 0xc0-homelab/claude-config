@@ -2,17 +2,17 @@
   "$schema": "https://code.claude.com/schemas/marketplace.json",
   "name": "0xc0-labs",
   "description": "Shared Claude Code configuration for the 0xc0-labs org",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "owner": {
     "name": "sergioaten"
   },
   "plugins": [
     {
-      "name": "homelab",
-      "displayName": "Homelab",
-      "source": "./plugins/homelab",
+      "name": "0xc0",
+      "displayName": "0xc0",
+      "source": "./plugins/0xc0",
       "description": "Agents, hooks and guardrails for 0xc0-labs: zoned network, IaC and GitOps",
-      "version": "0.1.11",
+      "version": "0.2.0",
       "author": {
         "name": "sergioaten"
       }

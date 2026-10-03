@@ -4,7 +4,7 @@ name: hooks
 on:
   pull_request:
     branches: [main]
-    paths: ['plugins/homelab/hooks/**', '.github/workflows/hooks.yml']
+    paths: ['plugins/0xc0/hooks/**', '.github/workflows/hooks.yml']
 
 permissions:
   contents: read
@@ -13,4 +13,4 @@ jobs:
   test:
     uses: 0xc0-labs/.github/.github/workflows/hook-tests.yml@main
     with:
-      command: plugins/homelab/hooks/tests/run.sh
+      command: plugins/0xc0/hooks/tests/run.sh

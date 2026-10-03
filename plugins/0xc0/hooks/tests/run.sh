@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Runs every case in cases.jsonl through its hook and compares the exit code:
-# 2 is blocked, 0 is allowed. Usage: plugins/homelab/hooks/tests/run.sh
+# 2 is blocked, 0 is allowed. Usage: plugins/0xc0/hooks/tests/run.sh
 set -uo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 n=0; failed=0
