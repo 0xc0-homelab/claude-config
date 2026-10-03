@@ -5,21 +5,15 @@ set -uo pipefail
 cmd="$(jq -r '.tool_input.command // ""')"
 [ -z "$cmd" ] && exit 0
 
-# Only look at git commit invocations.
 printf '%s' "$cmd" | grep -Eq '\bgit\b[^|;&]*\bcommit\b' || exit 0
 
-# The message comes from -m, or from stdin through a heredoc (-F - / --file=-).
-# A commit reading it from a real file, or an amend with no new message, is
-# out of scope: there is nothing in the command to inspect.
+# A message from a real file, or an amend without one, is not in the command.
 if printf '%s' "$cmd" | grep -Eq '[[:space:]](-F|--file)[=[:space:]]+-([[:space:]]|$)'; then
-  # The body of the heredoc opened on the git commit line itself, from the line
-  # after <<[-]['"]TAG['"] up to the line TAG. Another heredoc earlier in the
-  # command (a script editing a file, say) is not the message.
+  # Only the heredoc opened on the git commit line: an earlier one is not the message.
   msg="$(printf '%s' "$cmd" | perl -0777 -ne '
     print $2 if /\bgit\b[^\n;&|]*\bcommit\b[^\n]*?<<-?\s*["\x27]?(\w+)["\x27]?[^\n]*\n(.*?)\n\s*\1\s*(?:\n|$)/s')"
 elif printf '%s' "$cmd" | grep -Eq '[[:space:]]-([a-zA-Z]*m|-message)[=[:space:]]'; then
-  # Every -m value, whichever quoting was used, grouped short flags included
-  # (-qam "subject").
+  # Every -m value, any quoting, grouped short flags included (-qam).
   msg="$(printf '%s' "$cmd" | perl -ne '
     while (/(?:\s-[a-zA-Z]*m|\s--message)[= ]\s*("([^"\\]*(\\.[^"\\]*)*)"|'"'"'([^'"'"']*)'"'"'|(\S+))/g) {
       print defined($2) ? $2 : defined($4) ? $4 : $5; print "\n";

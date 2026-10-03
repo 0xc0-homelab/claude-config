@@ -16,9 +16,7 @@ case "$path" in
     ;;
 esac
 
-# A secrets file, encrypted or not: no repo holds one any more (.github#6).
-# gitops' vault-secrets.yaml is the exception: Vault Secrets Operator's
-# manifests, which name Vault paths and hold no value.
+# vault-secrets.yaml only names Vault paths; it holds no value.
 case "$path" in
   */vault-secrets.yaml) ;;
   *secrets.yaml|*secrets.yml|*.env|*.sops.*|*.enc.*)

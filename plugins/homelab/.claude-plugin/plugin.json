@@ -1,7 +1,7 @@
 {
   "name": "homelab",
-  "description": "0xc0 homelab agents, hooks and guardrails",
-  "version": "0.1.10",
+  "description": "Agents, hooks and guardrails for 0xc0-labs",
+  "version": "0.1.11",
   "author": {
     "name": "sergioaten"
   }

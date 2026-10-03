@@ -10,7 +10,7 @@ board="$(gh project item-list 1 --owner 0xc0-labs --limit 200 --format json --jq
   | if length == 0 then "No open items."
     else (group_by(.status // "No status")[]
           | "\(.[0].status // "No status"):",
-            (.[] | "  - [\(.phase // "no phase")] \(.repository // "draft" | sub("https://github.com/0xc0-labs/"; ""))#\(.content.number // "-") \(.title)"))
+            (.[] | "  - \(.repository // "draft" | sub("https://github.com/0xc0-labs/"; ""))#\(.content.number // "-") \(.title)"))
     end' 2>/dev/null)" || { echo "homelab: could not read the project board (gh auth?)."; exit 0; }
 
 cat <<EOF

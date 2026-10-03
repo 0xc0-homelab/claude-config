@@ -1,5 +1,3 @@
-# Tooling for the claude-config repo.
-# jq is what the plugin hooks shell out to, with perl from the OS. board.sh
-# also uses gh, from the workspace that loads the plugin.
+# The hooks also need perl, from the OS, and board.sh needs gh.
 [tools]
 jq = "1.8.2"

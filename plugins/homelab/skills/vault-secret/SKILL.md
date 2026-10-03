@@ -1,6 +1,6 @@
 ---
 name: vault-secret
-description: Adds, reads, rotates and grants secrets in the homelab's Vault — engine and path, keys, metadata, the policy that grants it, and how a pipeline or a cluster component reads it. Use whenever a secret is added, changed, shared or a new consumer needs one.
+description: Adds, reads, rotates and grants secrets in the cluster's Vault — engine and path, keys, metadata, the policy that grants it, and how a pipeline or a cluster component reads it. Use whenever a secret is added, changed, shared or a new consumer needs one.
 ---
 
 # Secrets in Vault
