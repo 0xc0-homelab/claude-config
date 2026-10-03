@@ -4,7 +4,7 @@ Claude Code marketplace and plugin for the `0xc0-labs` organization.
 
 ```
 .claude-plugin/marketplace.json   the marketplace
-plugins/homelab/                  the plugin
+plugins/0xc0/                  the plugin
   agents/                         5 agents
   skills/                         1 skill
   hooks/                          guardrails, commit and branch conventions, board loader
@@ -21,7 +21,7 @@ In the repo's `.claude/settings.json`:
       "source": { "source": "github", "repo": "0xc0-labs/claude-config" }
     }
   },
-  "enabledPlugins": { "homelab@0xc0-labs": true }
+  "enabledPlugins": { "0xc0@0xc0-labs": true }
 }
 ```
 
@@ -79,7 +79,7 @@ enables it but does not install it. Once per machine, from the workspace:
 
 ```bash
 claude plugin marketplace add 0xc0-labs/claude-config
-claude plugin install homelab@0xc0-labs --scope project
+claude plugin install 0xc0@0xc0-labs --scope project
 ```
 
 Then start a new session: plugins load at startup.

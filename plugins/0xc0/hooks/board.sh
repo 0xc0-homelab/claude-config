@@ -3,7 +3,7 @@
 # so no work starts without knowing what is tracked. Never blocks a session.
 set -uo pipefail
 
-command -v gh >/dev/null 2>&1 || { echo "homelab: gh not found, project board not loaded."; exit 0; }
+command -v gh >/dev/null 2>&1 || { echo "0xc0: gh not found, project board not loaded."; exit 0; }
 
 board="$(gh project item-list 1 --owner 0xc0-labs --limit 200 --format json --jq '
   [.items[] | select(.status != "Done")]
@@ -11,7 +11,7 @@ board="$(gh project item-list 1 --owner 0xc0-labs --limit 200 --format json --jq
     else (group_by(.status // "No status")[]
           | "\(.[0].status // "No status"):",
             (.[] | "  - \(.repository // "draft" | sub("https://github.com/0xc0-labs/"; ""))#\(.content.number // "-") \(.title)"))
-    end' 2>/dev/null)" || { echo "homelab: could not read the project board (gh auth?)."; exit 0; }
+    end' 2>/dev/null)" || { echo "0xc0: could not read the project board (gh auth?)."; exit 0; }
 
 cat <<EOF
 ## 0xc0-labs project board — open items
