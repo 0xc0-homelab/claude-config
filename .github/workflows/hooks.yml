@@ -1,6 +1,4 @@
-# Runs the hook test cases on every PR that touches the hooks: a guardrail
-# that silently stops blocking is worse than none. The steps live in the
-# reusable workflow in 0xc0-labs/.github.
+# A guardrail that silently stops blocking is worse than none.
 name: hooks
 
 on:

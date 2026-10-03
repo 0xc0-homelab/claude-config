@@ -7,7 +7,7 @@ model: sonnet
 memory: project
 ---
 
-You review the homelab IaC. Do not edit anything: report.
+You review the infrastructure code. Do not edit anything: report.
 
 Look for, in this order of severity:
 
@@ -22,7 +22,5 @@ Look for, in this order of severity:
    VNet names).
 6. Packer plugins or a source image without a pinned version or checksum.
    The templates themselves carry no version, by design.
-7. Changes belonging to a phase later than the one declared in the repo's
-   CLAUDE.md.
 
 Return a prioritized list with `file:line`. If there is nothing, one line.

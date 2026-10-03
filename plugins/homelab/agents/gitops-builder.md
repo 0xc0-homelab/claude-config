@@ -1,6 +1,6 @@
 ---
 name: gitops-builder
-description: Implements ALREADY DECIDED changes in the gitops repo (the ArgoCD manifests under clusters/prod for the homelab's RKE2 cluster, from phase 2 onwards).
+description: Implements ALREADY DECIDED changes in the gitops repo (the ArgoCD manifests for the RKE2 cluster, under bootstrap/prod, platform and apps).
 tools: Read, Grep, Glob, Edit, Write, Bash
 disallowedTools: WebFetch, WebSearch
 model: sonnet
