@@ -1,6 +1,6 @@
 # claude-config
 
-Claude Code marketplace and plugin for the `0xc0-homelab` organization.
+Claude Code marketplace and plugin for the `0xc0-labs` organization.
 
 ```
 .claude-plugin/marketplace.json   the marketplace
@@ -17,11 +17,11 @@ In the repo's `.claude/settings.json`:
 ```json
 {
   "extraKnownMarketplaces": {
-    "0xc0-homelab": {
-      "source": { "source": "github", "repo": "0xc0-homelab/claude-config" }
+    "0xc0-labs": {
+      "source": { "source": "github", "repo": "0xc0-labs/claude-config" }
     }
   },
-  "enabledPlugins": { "homelab@0xc0-homelab": true }
+  "enabledPlugins": { "homelab@0xc0-labs": true }
 }
 ```
 
@@ -78,8 +78,8 @@ every PR that touches them.
 enables it but does not install it. Once per machine, from the workspace:
 
 ```bash
-claude plugin marketplace add 0xc0-homelab/claude-config
-claude plugin install homelab@0xc0-homelab --scope project
+claude plugin marketplace add 0xc0-labs/claude-config
+claude plugin install homelab@0xc0-labs --scope project
 ```
 
 Then start a new session: plugins load at startup.
