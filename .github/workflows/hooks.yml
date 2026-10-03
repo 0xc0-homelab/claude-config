@@ -1,6 +1,6 @@
 # Runs the hook test cases on every PR that touches the hooks: a guardrail
 # that silently stops blocking is worse than none. The steps live in the
-# reusable workflow in 0xc0-homelab/.github.
+# reusable workflow in 0xc0-labs/.github.
 name: hooks
 
 on:
@@ -13,6 +13,6 @@ permissions:
 
 jobs:
   test:
-    uses: 0xc0-homelab/.github/.github/workflows/hook-tests.yml@main
+    uses: 0xc0-labs/.github/.github/workflows/hook-tests.yml@main
     with:
       command: plugins/homelab/hooks/tests/run.sh
